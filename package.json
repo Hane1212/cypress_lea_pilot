@@ -1,0 +1,14 @@
+{
+  "name": "pilot_hane_cypress",
+  "version": "1.0.0",
+  "description": "Pilot project on cypress",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "author": "Lea",
+  "license": "ISC",
+  "devDependencies": {
+    "cypress": "^12.17.2"
+  }
+}
