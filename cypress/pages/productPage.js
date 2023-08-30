@@ -34,8 +34,6 @@ class productPage{
     }
 
     getTheSecondProductName = async () => {
-        cy.log('The second product Name')
-        cy.log(await this.getProductName('2'))
         return await this.getProductName('2');
     }
 
@@ -54,20 +52,28 @@ class productPage{
     }
 
     getNumbOfProduct = async () => {
-        cy.get('[class="single-products"]').its('length').as('pLength')
+        cy.get('[class="single-products"]').its('length').as('pLength');
         const productLength = await cy.get('@pLength');
         cy.log('--------ProductLength----------')
         cy.log(productLength)
-        return await cy.get('@pLength');
+        return productLength;
     }
 
-    getRandomProductNumber = async () => {
-        const productNumb = await this.getNumbOfProduct();
-        return this.getRandomNumber(1, productNumb);
+    // getNumbOfProduct  () {
+    //     let lengthp = 1;
+    //     return cy.get('[class="single-products"]').its('length');
+    //     // const productLength = cy.get('@pLength');
+    //     // cy.log('--------ProductLength----------')
+    //     // cy.log(lengthp)
+    //     // return lengthp;
+    // }
+
+    getRandomProductNumber  () {
+        return this.getRandomNumber(1,33);
     }
 
     getRandomNumber (min, max) {
-       return (Math.random() * (max - min) + min);
+       return Math.floor(Math.random() * (max - min) + min);
     }
 
     VerifySearchResult = async(searchItem) =>{

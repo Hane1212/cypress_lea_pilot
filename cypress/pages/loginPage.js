@@ -1,4 +1,5 @@
 
+import user from '../fixtures/user.json'
 class loginPage{
 
     elements ={
@@ -18,12 +19,16 @@ class loginPage{
         newsletter : ()=> cy.get('#newsletter'),
         uniformOptin : ()=> cy.get('#optin'),
         createCccountBtn : () => cy.get('[data-qa="create-account"]'),
+        // Create success
+        continue: ()=>cy.get('[class="btn btn-primary"]'),
     }
 
     clickOnSignup(){
-
         this.elements.signupBtn().click()
+    }
 
+    clickContinue(){
+        this.elements.continue().click();
     }
 
     selectDay(option){
@@ -40,27 +45,40 @@ class loginPage{
 
     inputAccountInfor(){
         this.elements.titleMr().check();
-        this.elements.password().type('12345');
-        this.elements.days().select('8', { force: true });
-        this.elements.months().select('May', { force: true });
-        this.elements.years().select('1990', { force: true })
+        this.elements.password().type(user.user1.password);
+        this.elements.days().select(user.user1.days, { force: true });
+        this.elements.months().select(user.user1.months, { force: true });
+        this.elements.years().select(user.user1.years, { force: true })
         this.elements.newsletter().check();
         this.elements.uniformOptin().check();
     }
 
     inputAddressInfor(){
-        cy.get('#first_name').type('lea');
-        cy.get('#last_name').type('hane');
-        cy.get('#address1').type('address1');
-        cy.get('#country').select('Canada',{force:true});
-        cy.get('#state').type('State');
-        cy.get('#city').type('Hanoi');
-        cy.get('#zipcode').type('100000');
-        cy.get('#mobile_number').type('12345678');
+        cy.get('#first_name').type(user.user1.firstName);
+        cy.get('#last_name').type(user.user1.lastName);
+        cy.get('#address1').type(user.user1.address);
+        cy.get('#country').select(user.user1.country,{force:true});
+        cy.get('#state').type(user.user1.state);
+        cy.get('#city').type(user.user1.city);
+        cy.get('#zipcode').type(user.user1.zipcode);
+        cy.get('#mobile_number').type(user.user1.mobileNumber);
     }
 
     clickCreateAcctBtn(){
         this.elements.createCccountBtn().click();
+    }
+
+    createNewAcct(name, email){
+        this.elements.signupName().type(name);
+        this.elements.signupEmail().type(email);
+        this.clickOnSignup()
+        this.inputAccountInfor();
+        this.inputAddressInfor();
+        this.elements.createCccountBtn().click();
+    }
+
+    createNewAccToCheckout(){
+        this.createNewAcct('checkout_test_001', 'checkout_test_001@gmail.com')
     }
 
 }
